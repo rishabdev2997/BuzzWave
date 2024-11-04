@@ -53,17 +53,20 @@ app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 
 /* MONGOOSE SETUP */
-const PORT = process.env.PORT || 6001;
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    console.log("Connected to MongoDB");
 
     /* ADD DATA ONE TIME */
+    // Uncomment these lines if you want to add initial data to your database
     // User.insertMany(users);
     // Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} did not connect`));
+
+/* EXPORT THE APP FOR VERCEL */
+export default app;
